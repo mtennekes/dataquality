@@ -1,0 +1,15 @@
+#categorical
+sex %in% c(1,2)
+employed %in% c(1,2)
+province %in% c(1,2,3,4,5,6,7)
+education %in% c(1,2,3,4,5,6)
+#numeric rules
+age<=100
+age>-1
+income+age<1000
+#mixed rules
+if (age<18) income<=0
+if (age>65) income<=0
+if (age<16) education %in% c(1,2,3,4)
+if (employed==1) income<=10
+if (sex==1) income>1000

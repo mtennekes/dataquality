@@ -1,0 +1,38 @@
+Package: dataquality
+Maintainer: Martijn Tennekes <mtennekes@gmail.com>
+License: GPL-3
+Title: Data quality tools
+Type: Package
+LazyLoad: yes
+Author: Martijn Tennekes, Piet Daas and Saskia Ossen
+Description: Tools for data quality inspection and data profiling
+Version: 0.3-7
+Date: 2013-05-06
+Depends:
+    data.table,
+    editrules,
+    grid,
+    gridBase,
+    ggplot2,
+    Hmisc,
+    igraph,
+    VIM,
+    tabplot
+Collate:
+    'allign.R'
+    'compare.R'
+    'cramerV_test.R'
+    'dateDiff.R'
+    'describe.R'
+    'MAPE.R'
+    'multipleplot.R'
+    'pkg.R'
+    'relation.R'
+    'redundancy.R'
+    'visualise.pair.R'
+    'visualise.R'
+    'visualise.single.R'
+    'withNA.R'
+    'example_data.R'
+    'tableplot.R'
+    'checkFormat.R'

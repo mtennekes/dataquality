@@ -1,0 +1,5 @@
+version 0.3-7
+- removed tabplotGTK (replaced by itableplot)
+
+version 0.3-6
+- fixed bug in compare: both the fluctuations plot and the scatter plot with missing values are plotted in rectangular areas
