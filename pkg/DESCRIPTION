@@ -18,6 +18,8 @@ Depends:
     igraph,
     VIM,
     tabplot
+Imports:
+    knitr
 Collate:
     'allign.R'
     'compare.R'
@@ -36,3 +38,4 @@ Collate:
     'example_data.R'
     'tableplot.R'
     'checkFormat.R'
+    'quality_report.R'

@@ -1,15 +1,15 @@
-\name{tableGUI}
-\alias{tableGUI}
+\name{itableplot}
+\alias{itableplot}
 \title{GUI for creating tableplots}
 \usage{
-  tableGUI(...)
+  itableplot(...)
 }
 \arguments{
   \item{...}{arguments passed to
-  \code{\link[tabplotGTK]{tableGUI}}}
+  \code{\link[tabplot]{itableplot}}}
 }
 \value{
-  See \code{\link[tabplotGTK]{tableGUI}}
+  See \code{\link[tabplot]{itableplot}}
 }
 \description{
   GUI for creating tableplots

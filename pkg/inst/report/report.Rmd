@@ -1,0 +1,48 @@
+`r opts_chunk$set(echo=FALSE, comment=NA)`
+Quality Report Document
+========================================================
+
+Data source: **`r name.data`**
+Date: **`r as.character(Sys.Date())`**
+
+The quality indicators in report are organized in four dimensions: technical checks, accuracy, completeness and time-related.
+
+
+1. Technical checks
+===========================
+
+This dimension predominantly consists of IT-related indicators for the data in a source. Apart from indicators related to the accessibility and correct conversion of the data, it also contains an indicator that checks if the data complies to the metadata-definition.
+
+```{r}
+describe(data)
+```
+
+You can also embed plots, for example:
+
+```{r}
+visualise(data)
+```
+
+```{r fig.align='left'}
+tableplot(data)
+```
+
+
+2. Accuracy
+===========================
+
+The indicators in this dimension all originate from the sources of error that can occur when administrative data is used as input for NSI’s up to the point at which the data is linked to other (statistical) data sources. The indicators for objects point to the correctness of the units/events registered in the source, while the variable indicators focus on that of the values.
+
+3. Completeness
+===========================
+
+For objects this dimension predominantly focuses on coverage issues, while the variable indicators are related to missing and imputed values.
+
+```{r}
+redundancy(sam)
+```
+
+4. Time-related
+===========================
+
+The quality indicators in this dimension are all related to time. The Timeliness, Punctuality, and Overall time lag indicators apply to the delivery of the input data file. The Delay indicator focuses on the recentness of the information stored.
