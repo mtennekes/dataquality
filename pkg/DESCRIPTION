@@ -39,3 +39,4 @@ Collate:
     'tableplot.R'
     'checkFormat.R'
     'quality_report.R'
+    'alignment_plot.R'

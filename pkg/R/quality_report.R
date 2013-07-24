@@ -13,24 +13,11 @@ quality.report <- function(src.data,
 						   ref.data,
 						   ref.vars,
 						   ref.keys,
-						   check.pattern,
+						   check.pattern=NULL,
 						   output="report.html") {
 	src.name <- deparse(substitute(src.data))
+	ref.name <- deparse(substitute(ref.data))
 	
-	data(sam)
-	data(reg_t1)
-	
-	src.data <- sam
-	src.name <-"sam"
-	src.keys <- "id"
-	src.vars <- names(sam)
-	
-	ref.data <- reg_t1
-	ref.name <-"reg_t1"
-	ref.keys <- "id_code"
-	ref.vars <- names(reg_t1)
-
-
 	src.vars <- setdiff(src.vars, src.keys)
 	ref.vars <- setdiff(ref.vars, ref.keys)
 	
@@ -41,58 +28,32 @@ quality.report <- function(src.data,
 	setnames(src.data, src.vars, paste0(src.vars, ".src"))
 	setnames(ref.data, ref.vars, paste0(ref.vars, ".ref"))
 	
+	print(nrow(src.data))
 	src.list <- remove.duplicates(src.data)
 	ref.list <- remove.duplicates(ref.data)
 	
-	src.data <- src.list$data
+	src.data <- copy(src.list$data)
 	src.duplicates <- src.list$duplicates
-
+	print(nrow(src.data))
+	
 	ref.data <- ref.list$data
 	ref.duplicates <- ref.list$duplicates
+	matched.data <- src.data[ref.data, nomatch=0]
 	
-	merged.data <- src.data[ref.data,nomatch=0]
-	
-	## plot
-	grid.newpage()	
-	datnames <- c(src.name, ref.name)
-	datwidths <- convertWidth(stringWidth(datnames),unitTo="npc", valueOnly=TRUE)
-	
-	
-	pushViewport(viewport(grid.layout(2, 2, widths=
-									  	unit(c(max(datwidths)+.1, 1), c("npc", "null")))))
-	
-	parts <- c(nrow(src.data) - nrow(merged.data),
-			   nrow(merged.data),
-			   nrow(ref.data) - nrow(merged.data))
-	total <- sum(parts)
-	
-	widths <- parts/total
-	
-	numbers <- as.character(parts)
-	convertWidth(stringWidth(numbers),unitTo="npc", valueOnly=TRUE)
-	
-	
-	xs <- c(cumsum(c(0,widths))[1:3],1)
-	
-	library(RColorBrewer)
-	display.brewer.all()
-	brewer.set1 <- brewer.pal(9, name="Set1")
-	
-	grid.rect(x=c(xs[1], xs[2]), y=c(1, .6), width=c(sum(widths[1:2]), sum(widths[2:3])), height=.3, gp=gpar(fill=brewer.set1[2:3], col=NA), just=c("left", "top"))	
-
-	grid.polyline(x=rep(xs, each=2), y=rep(c(0,1), 4), id=rep(1:4, each=2),gp=gpar(lty="dashed"))
-	
-	
-	data <- sam
-	name.data<-"sam"
-	output <- "sam_report.html"
 	require(knitr)
-	
-	
 	knit2html("./inst/report/report.Rmd", output=output)
-	visualise(data)
 }
 
+
+
+#' Convert data table
+#'
+#' Convert data table
+#'
+#' @param data data
+#' @param keys keys
+#' @param vars vars
+#' @import data.table
 convert.data.table <- function(data, keys, vars) {
 	if (is.ffdf(data)) {
 		stop("ffdf not supported yet")
@@ -101,13 +62,36 @@ convert.data.table <- function(data, keys, vars) {
 		data <- as.data.table(data)
 	}
 	
-	setkeyv(data, keys)
-	subset(data, select=c(keys, vars))
+	data.subset <- subset(data, select=c(keys, vars))
+	setkeyv(data.subset, keys)
+	data.subset
 }	
 
+#' Remove duplicates
+#'
+#' Remove duplicates
+#'
+#' @param data data
+#' @import data.table
 remove.duplicates <- function(data) {
 	duplicates <- duplicated(data)
 	duplicates <- data[duplicates, ]
+	data.unique <- unique(data)
 	
-	list(duplicates=duplicates, data=unique(data))
+	setkeyv(data.unique, key(data))
+	setkeyv(duplicates, key(data))
+	
+	list(duplicates=duplicates, data=data.unique)
+}
+
+cellplot <- function(x,y, vp=NULL, e){
+	name <- paste("(", deparse(substitute(x)),",",deparse(substitute(y)), ")", sep="")
+	pushViewport(viewport( name=name, layout.pos.row=x, layout.pos.col=y))
+	n <- 1
+	if (!is.null(vp)){ 
+		pushViewport(vp)
+		n <- n + 1
+	}
+	e
+	popViewport(n=n)
 }

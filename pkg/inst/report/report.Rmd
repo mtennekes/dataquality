@@ -2,7 +2,7 @@
 Quality Report Document
 ========================================================
 
-Data source: **`r name.data`**
+Data source: **`r src.name`**
 Date: **`r as.character(Sys.Date())`**
 
 The quality indicators in report are organized in four dimensions: technical checks, accuracy, completeness and time-related.
@@ -14,17 +14,17 @@ The quality indicators in report are organized in four dimensions: technical che
 This dimension predominantly consists of IT-related indicators for the data in a source. Apart from indicators related to the accessibility and correct conversion of the data, it also contains an indicator that checks if the data complies to the metadata-definition.
 
 ```{r}
-describe(data)
+describe(src.data)
 ```
 
 You can also embed plots, for example:
 
 ```{r}
-visualise(data)
+visualise(src.data)
 ```
 
 ```{r fig.align='left'}
-tableplot(data)
+tableplot(src.data, sortCol=src.keys[1])
 ```
 
 
@@ -33,13 +33,31 @@ tableplot(data)
 
 The indicators in this dimension all originate from the sources of error that can occur when administrative data is used as input for NSI’s up to the point at which the data is linked to other (statistical) data sources. The indicators for objects point to the correctness of the units/events registered in the source, while the variable indicators focus on that of the values.
 
+
+Source:
+```{r}
+src.data
+```
+
+Reference
+```{r}
+ref.data
+```
+
+Matched:
+```{r}
+matched.data
+```
+
+
+
 3. Completeness
 ===========================
 
 For objects this dimension predominantly focuses on coverage issues, while the variable indicators are related to missing and imputed values.
 
 ```{r}
-redundancy(sam)
+alignment.plot(nrow(src.data), nrow(ref.data), nrow(matched.data), src.name, ref.name) 
 ```
 
 4. Time-related
