@@ -13,7 +13,8 @@ quality.report <- function(src.data,
 						   ref.data,
 						   ref.vars,
 						   ref.keys,
-						   check.pattern=NULL,
+						   align.vars=NULL,
+						   check.format=NULL,
 						   output="report.html") {
 	src.name <- deparse(substitute(src.data))
 	ref.name <- deparse(substitute(ref.data))
@@ -25,8 +26,13 @@ quality.report <- function(src.data,
 	src.data <- convert.data.table(src.data, src.keys, src.vars)
 	ref.data <- convert.data.table(ref.data, ref.keys, ref.vars)
 	
-	setnames(src.data, src.vars, paste0(src.vars, ".src"))
-	setnames(ref.data, ref.vars, paste0(ref.vars, ".ref"))
+	src.align.vars <- sapply(align.vars, function(x)paste0(x[1], ".src"))
+	ref.align.vars <- sapply(align.vars, function(x)paste0(x[2], ".ref"))
+	
+	src.vars.new <- paste0(src.vars, ".src")
+	ref.vars.new <- paste0(ref.vars, ".ref")
+	setnames(src.data, src.vars, src.vars.new)
+	setnames(ref.data, ref.vars, ref.vars.new)
 	
 	print(nrow(src.data))
 	src.list <- remove.duplicates(src.data)
@@ -39,6 +45,7 @@ quality.report <- function(src.data,
 	ref.data <- ref.list$data
 	ref.duplicates <- ref.list$duplicates
 	matched.data <- src.data[ref.data, nomatch=0]
+	src.keys2 <- src.keys
 	
 	require(knitr)
 	knit2html("./inst/report/report.Rmd", output=output)

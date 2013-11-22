@@ -24,7 +24,9 @@ visualise(src.data)
 ```
 
 ```{r fig.align='left'}
-tableplot(src.data, sortCol=src.keys[1])
+print(src.keys[1])
+sortCol<-match(src.keys[1], names(src.data))
+tableplot(src.data, sortCol=sortCol)
 ```
 
 
@@ -32,6 +34,18 @@ tableplot(src.data, sortCol=src.keys[1])
 ===========================
 
 The indicators in this dimension all originate from the sources of error that can occur when administrative data is used as input for NSI’s up to the point at which the data is linked to other (statistical) data sources. The indicators for objects point to the correctness of the units/events registered in the source, while the variable indicators focus on that of the values.
+
+2.1 Authenticity
+
+Checks the format of specific variables
+```{r}
+vars <- names(check.format)
+for (v in vars) checkFormat(src.data, v, pattern=check.format[v])
+
+```
+
+Changed values
+
 
 
 Source:

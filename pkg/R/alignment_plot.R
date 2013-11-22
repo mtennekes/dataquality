@@ -13,7 +13,7 @@ alignment.plot <- function(src.nrow, ref.nrow, matched.nrow, src.name="source", 
 	
 	heights <- parts/total
 	ys <- c(cumsum(c(0,heights))[1:3],1)
-	numberwidth <- convertWidth(stringWidth("1000000"),unitTo="npc", valueOnly=TRUE)
+	numberwidth <- convertWidth(stringWidth("10000000"),unitTo="npc", valueOnly=TRUE)
 	
 	pushViewport(viewport(layout=grid.layout(2, 6, 
 											 widths=unit(c(numberwidth,numberwidth,1,1,numberwidth,numberwidth), c("npc", "npc", "null", "null", "npc", "npc")),

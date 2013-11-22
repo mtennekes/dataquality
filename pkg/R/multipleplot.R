@@ -1,6 +1,6 @@
 multipleplot <- function(plots, title="") {
     plot.new()
-	grid.newpage()
+	#grid.newpage()
 	par(mar=c(4,4,2,1))
 	
 	k <- length(plots)
