@@ -15,9 +15,9 @@ alignment.plot <- function(src.nrow, ref.nrow, matched.nrow, src.name="source", 
 	ys <- c(cumsum(c(0,heights))[1:3],1)
 	numberwidth <- convertWidth(stringWidth("10000000"),unitTo="npc", valueOnly=TRUE)
 	
-	pushViewport(viewport(layout=grid.layout(2, 6, 
+	pushViewport(viewport(layout=grid.layout(3, 6, 
 											 widths=unit(c(numberwidth,numberwidth,1,1,numberwidth,numberwidth), c("npc", "npc", "null", "null", "npc", "npc")),
-											 heights=unit(c(1.5,1), c("lines", "null")))))
+											 heights=unit(c(1.5,1, .5), c("lines", "null", "lines")))))
 	
 	cellplot(1, 3, e={
 		grid.text(datnames[1])

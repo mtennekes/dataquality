@@ -24,5 +24,15 @@ quality.report(src.data=sam,
 			   ref.data=reg_t1,
 			   ref.vars=names(reg_t1),
 			   ref.keys="id_code",
-			   check.format=c(id="^S[0-9]+$"),
+			   check.format=c(idcode="^S[0-9]+$"),
+			   output="report.html")
+
+quality.report(src.data=reg_t1,
+			   src.vars=names(reg_t1),
+			   src.keys="id_code",
+			   ref.data=reg_t2,
+			   ref.vars=names(reg_t2),
+			   ref.keys="id_code",
+			   align.vars=list(c("sex", "sex"), c("age", "age")),
+			   check.format=c(id_code="^S[0-9]+$"),
 			   output="report.html")

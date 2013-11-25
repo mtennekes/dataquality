@@ -17,7 +17,15 @@ This dimension predominantly consists of IT-related indicators for the data in a
 describe(src.data)
 ```
 
-You can also embed plots, for example:
+Source data:
+```{r}
+src.data
+```
+
+Reference data
+```{r}
+ref.data
+```
 
 ```{r}
 visualise(src.data)
@@ -44,24 +52,20 @@ for (v in vars) checkFormat(src.data, v, pattern=check.format[v])
 
 ```
 
-Changed values
-
-
-
-Source:
-```{r}
-src.data
-```
-
-Reference
-```{r}
-ref.data
-```
-
-Matched:
+Aligned data:
 ```{r}
 matched.data
 ```
+
+Changed values
+```{r}
+cat("Number of aligned records: ", nrow(matched.data), "\n")
+changed_values(matched.data, src.align.vars, ref.align.vars)
+```
+
+
+
+
 
 
 

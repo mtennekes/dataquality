@@ -48,6 +48,7 @@ quality.report <- function(src.data,
 	src.keys2 <- src.keys
 	
 	require(knitr)
+	browser()
 	knit2html("./inst/report/report.Rmd", output=output)
 }
 
